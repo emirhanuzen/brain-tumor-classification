@@ -7,7 +7,7 @@ import torch.nn as nn
 from torchvision import models
 
 
-def build_model(num_classes=3, freeze_backbone=True):
+def build_model(num_classes=3, freeze_backbone=False):
     """ResNet18 tabanlı sınıflandırma modeli oluşturur.
 
     Args:

@@ -7,14 +7,18 @@ import torch.nn as nn
 from torchvision import models
 
 
-def build_model(num_classes=3, freeze_backbone=True):
+def build_model(num_classes=3, freeze_backbone=True, pretrained=True):
     """ResNet18 tabanlı sınıflandırma modeli oluşturur.
 
     Args:
         num_classes: Çıkış sınıf sayısı (varsayılan 3: Malignant/Benign/No Tumor)
         freeze_backbone: True ise sadece son katman eğitilir (hızlı, az veriyle iyi çalışır)
+        pretrained: True ise ImageNet ön eğitimli ağırlıklar indirilir (eğitim için gerekli).
+            Kendi eğitilmiş ağırlıklarınızı (best_model.pth) yükleyecekseniz False verin;
+            bu ağırlıklar zaten üzerine yazılacağı için indirme gereksizdir.
     """
-    model = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+    weights = models.ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
+    model = models.resnet18(weights=weights)
 
     if freeze_backbone:
         for param in model.parameters():

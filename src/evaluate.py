@@ -35,7 +35,9 @@ def main():
     test_ds = BrainTumorDataset(test_dir, transform=eval_transforms)
     test_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
 
-    model = build_model(num_classes=len(CLASS_NAMES))
+    # pretrained=False: ImageNet ağırlıkları hemen ardından best_model.pth ile
+    # üzerine yazıldığı için indirilmelerine gerek yok.
+    model = build_model(num_classes=len(CLASS_NAMES), pretrained=False)
     model.load_state_dict(torch.load(args.model_path, map_location=device))
     model.to(device)
     model.eval()

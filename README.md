@@ -104,6 +104,16 @@ negatiflerin (kaçırılan vakaların) maliyetinin yüksek olması nedeniyle
 öncelikli olarak izlenmiştir ve sınıf ağırlıklandırması ile
 iyileştirilmiştir (başlangıç değeri: %60).
 
+## 🖥️ Ekran Görüntüleri
+
+**Kötü huylu (malignant) tahmin örneği:**
+
+![Malignant örnek](outputs/docs/test_1.png)
+
+**İyi huylu (benign) tahmin örneği:**
+
+![Benign örnek](outputs/docs/test_3.png)
+
 ## 🎯 Microsoft AI Innovator Bağlamı
 
 Bu proje; veri ön işleme, transfer learning, model değerlendirme ve

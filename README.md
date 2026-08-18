@@ -84,7 +84,25 @@ Düşük VRAM'li GPU'larda (örn. 4GB) eğitim yavaş olabileceğinden,
 
 ## 📊 Sonuçlar
 
-_Model eğitimi tamamlandıktan sonra buraya eklenecek: accuracy/loss grafikleri, confusion matrix, sınıf bazlı metrikler._
+Model, sınıf ağırlıklı loss (Malignant sınıfına 1.5x ağırlık) ile eğitilmiştir;
+bu, klinik açıdan daha kritik olan kötü huylu vakaların kaçırılma oranını
+azaltmayı hedefler.
+
+**Genel doğruluk: %86**
+
+| Sınıf | Precision | Recall | F1-score |
+|---|---|---|---|
+| Malignant (Kötü Huylu) | 0.84 | 0.71 | 0.77 |
+| Benign (İyi Huylu) | 0.89 | 0.88 | 0.89 |
+| No Tumor (Tümör Yok) | 0.83 | 0.97 | 0.90 |
+
+Confusion matrix: `outputs/confusion_matrix.png`
+
+**Not:** Malignant recall (%71), modelin gerçek kötü huylu vakaların
+%71'ini doğru yakaladığını gösterir. Bu değer, tıbbi bağlamda yanlış
+negatiflerin (kaçırılan vakaların) maliyetinin yüksek olması nedeniyle
+öncelikli olarak izlenmiştir ve sınıf ağırlıklandırması ile
+iyileştirilmiştir (başlangıç değeri: %60).
 
 ## 🎯 Microsoft AI Innovator Bağlamı
 

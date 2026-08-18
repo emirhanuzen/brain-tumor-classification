@@ -118,7 +118,7 @@ tarafından verilmelidir.
 
 ## 👤 Geliştirici
 
-Ömer Faruk Mila
+Emirhan Uzen
 
 ## 📄 Lisans
 

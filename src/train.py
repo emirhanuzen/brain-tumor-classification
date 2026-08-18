@@ -23,7 +23,8 @@ def parse_args():
     parser.add_argument("--epochs", type=int, default=15)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--lr", type=float, default=1e-4)
-    parser.add_argument("--freeze-backbone", action="store_true", default=True)
+    parser.add_argument("--freeze-backbone", action="store_true", default=True,
+                         help="Sadece son katmanı eğitir (varsayılan: açık)")
     parser.add_argument("--output-dir", type=str, default="models")
     return parser.parse_args()
 
@@ -59,7 +60,11 @@ def main():
 
     model = build_model(num_classes=len(CLASS_NAMES), freeze_backbone=args.freeze_backbone).to(device)
 
-    criterion = nn.CrossEntropyLoss()
+    # Malignant (index 0) sınıfı klinik olarak daha kritik ve daha zor
+    # ayırt ediliyor; bu sınıfa daha yüksek ağırlık vererek modelin onu
+    # kaçırma eğilimini azaltıyoruz. Sıra: [Malignant, Benign, No Tumor]
+    class_weights = torch.tensor([1.5, 1.0, 1.0]).to(device)
+    criterion = nn.CrossEntropyLoss(weight=class_weights)
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=args.lr)
 
     os.makedirs(args.output_dir, exist_ok=True)
